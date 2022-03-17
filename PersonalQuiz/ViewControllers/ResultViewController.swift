@@ -23,13 +23,13 @@ class ResultViewController: UIViewController {
     }
     
     private func getChosenAnimal(from answers: [Answer]) -> Animal {
+        
         let chosenAnimal = answersChosen.map {$0.animal}
             .reduce(into: [:]) {counts, animal in
                 counts[animal, default: 0] += 1
             }
-            .sorted{$0.value > $1.value}
-            .first?.key
+            .filter{$0.value != 1}
         
-        return chosenAnimal ?? .dog
+        return chosenAnimal.first?.key ?? .dog
     }
 }
